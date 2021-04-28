@@ -1,0 +1,85 @@
+<template>
+  <div class="container">
+    <form submit.delegate="addAsset()" >
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="id">ID</label>
+          <input value.bind="id" type="number" class="form-control" id="id">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="name">Asset Name</label>
+          <input value.bind="name" minlength=5 maxlength=50 type="text" class="form-control" id="name">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="department">Department</label>
+          <select required value.bind="department" id="department" class="form-control">
+            <option hidden disabled selected value> -- select an option -- </option>
+            <option model.bind=0>HQ</option>
+            <option model.bind=1>Store1</option>
+            <option value=2>Store2</option>
+            <option value=3>Store3</option>
+            <option value=4>MaintenanceStation</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="country">Country of Department</label>
+          <input value.bind="country" type="text" class="form-control" id="country">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="email" class="form-label">Email address</label>
+          <input value.bind="email" type="email" class="form-control" id="email">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="date" class="form-label">Purchase Date</label>
+          <input value.bind="date" type="date" class="form-control" id="date">
+        </div>
+      </div>
+      <div class="form-check">
+        <input checked.bind="broken" type="checkbox" class="form-check-input" id="broken">
+        <label class="form-check-label" for="broken">
+          Broken
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br>
+    <div if.bind="tableData.length>0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">AssetName</th>
+            <th scope="col">Department</th>
+            <th scope="col">Country</th>
+            <th scope="col">Email</th>
+            <th scope="col">PurchaseDate</th>
+            <th scope="col">Broken</th>
+            <th scope="col">Opration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr repeat.for="data of tableData">
+            <th>${data.id}</th>
+            <th>${data.name}</th>
+            <th>${data.department}</th>
+            <th>${data.country}</th>
+            <th>${data.email}</th>
+            <th>${data.date}</th>
+            <th>${data.broken}</th>
+            <th>
+              <button type="button" click.delegate="deleteAsset(data.id)">
+                <font-awesome-icon icon.bind="trash"></font-awesome-icon>
+              </button>
+              <button type="button" click.delegate="editAsset(data)">
+                <font-awesome-icon icon.bind="edit"></font-awesome-icon>
+              </button>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</template>
+
